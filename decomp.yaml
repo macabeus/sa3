@@ -1,0 +1,6 @@
+platform: gba
+
+tools:
+  asmlift:
+    # the built ELF - asmlift symbol source (names from .symtab; no types-sidecar yet)
+    elf: sa3.elf
