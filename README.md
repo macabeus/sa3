@@ -5,14 +5,17 @@ benchmark reproducible. It is the upstream
 [SAT-R/sa3](https://github.com/SAT-R/sa3) tree at the exact commit the benchmark's
 functions were vendored from, plus a minimal integration commit:
 
-- `decomp.yaml` — points asmlift at the project's symbol source (`tools.asmlift.elf`):
-  `sa3.elf`, the ELF the normal build already produces (names-only, no types-sidecar);
-  no extra build step
+- `decomp.yaml` — points asmlift at the project's symbol source (`tools.asmlift.elf`)
+- `tools/asmlift-sidecar.sh` + a make-generated sidecar TU (`build/asmlift-ctx.c`,
+  header list curated in the `Makefile`) — build a DWARF *types-sidecar*
+  (declaration shapes for the project's globals) and merge it into a **copy** of the
+  built ELF (`make asmlift-elf`, needs a host `arm-none-eabi` toolchain); the real
+  build outputs are untouched
 - nothing else differs from upstream
 
-To reproduce the benchmark rows: build the project as usual (the ROM must match) — the
-built ELF is the symbol source — then follow the per-function scripts published in the
-benchmark report.
+To reproduce the benchmark rows: build the project as usual (the ROM must match), run
+`make asmlift-elf`, then follow the per-function scripts published in the benchmark
+report.
 
 ---
 
