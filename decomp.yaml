@@ -2,5 +2,6 @@ platform: gba
 
 tools:
   asmlift:
-    # the built ELF - asmlift symbol source (names from .symtab; no types-sidecar yet)
-    elf: sa3.elf
+    # the DERIVED elf: a copy of sa3.elf with the DWARF types-sidecar merged in
+    # (tools/asmlift-sidecar.sh) — names from .symtab, shapes from the DWARF
+    elf: sa3-syms.elf
