@@ -244,11 +244,20 @@ endif
 ifeq ($(PLATFORM),gba)
   ASFLAGS  += -mcpu=arm7tdmi -mthumb-interwork
   CC1FLAGS += -mthumb-interwork
-  # NOTE: agbcc -g is NOT usable in this project. It emits .debug_info references to
-  # line-info labels (.LI<n>_<m>) that it never defines, and the link fails on the dangling
-  # symbols — reproduced on player.c, breakable_wall.c, bonus_game_capsule.c, grind_rail.c
-  # and others, so a per-file opt-out does not scale. asmlift's symbol map therefore gets
-  # its declaration shapes from the types-sidecar below, not from the compiler.
+  # ASMLIFT_DINFO=1 records agbcc's own DWARF: declaration shapes for every global it sees
+  # and a signature per function (7,410 shapes / 2,155 signatures here, against the
+  # types-sidecar's 103 / 0). Byte-neutral — debug sections are non-alloc and sa3.gba's sha1
+  # is unchanged.
+  #
+  # OFF BY DEFAULT because it needs an agbcc carrying the dwarf2out fix for deleted labels:
+  # at -O a user label whose block the optimizer merges away (a `goto' target) still got a
+  # DW_AT_low_pc pointing at a label `final' never emitted, and the LINK fails on the
+  # dangling symbol — player.c, breakable_wall.c, bonus_game_capsule.c, grind_rail.c and
+  # more. tools/agbcc is not vendored here, so an unpatched install must still build.
+  ASMLIFT_DINFO ?= 0
+  ifeq ($(ASMLIFT_DINFO),1)
+    CC1FLAGS += -g
+  endif
 else
   ifeq ($(PLATFORM), sdl)
     # for modern we are using a modern compiler
