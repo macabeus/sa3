@@ -244,6 +244,11 @@ endif
 ifeq ($(PLATFORM),gba)
   ASFLAGS  += -mcpu=arm7tdmi -mthumb-interwork
   CC1FLAGS += -mthumb-interwork
+  # NOTE: agbcc -g is NOT usable in this project. It emits .debug_info references to
+  # line-info labels (.LI<n>_<m>) that it never defines, and the link fails on the dangling
+  # symbols — reproduced on player.c, breakable_wall.c, bonus_game_capsule.c, grind_rail.c
+  # and others, so a per-file opt-out does not scale. asmlift's symbol map therefore gets
+  # its declaration shapes from the types-sidecar below, not from the compiler.
 else
   ifeq ($(PLATFORM), sdl)
     # for modern we are using a modern compiler

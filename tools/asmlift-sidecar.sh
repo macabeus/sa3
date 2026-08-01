@@ -32,6 +32,19 @@ arm-none-eabi-gcc \
   -g -fno-eliminate-unused-debug-types \
   -c build/asmlift-ctx.c -o build/asmlift-ctx.o
 
+# A SECOND compile of the same TU, only for the macro table. -g3 records macro definitions;
+# -gdwarf-2 -gstrict-dwarf emits them as ONE self-contained .debug_macinfo with inline strings,
+# where DWARF-5 .debug_macro would split across COMDAT groups and reference .debug_str —
+# neither of which survives a section graft. Kept separate so the type DWARF above is
+# byte-for-byte the same as before this was added.
+arm-none-eabi-gcc \
+  -iquote include -nostdinc -I tools/agbcc/include \
+  -D EUROPE -D PLATFORM_GBA=1 -D PLATFORM_SDL=0 -D PLATFORM_WIN32=0 \
+  -D CPU_ARCH_X86=0 -D CPU_ARCH_ARM=1 -D DEBUG=0 \
+  -std=gnu89 -mabi=apcs-gnu -w \
+  -gdwarf-2 -g3 -gstrict-dwarf \
+  -c build/asmlift-ctx.c -o build/asmlift-ctx-macros.o
+
 cp sa3.elf sa3-syms.elf
 for sec in .debug_info .debug_abbrev .debug_str .debug_line .debug_aranges; do
   # debug sections are non-alloc; objcopy -O binary dumps only alloc sections, so flag first
@@ -40,5 +53,11 @@ for sec in .debug_info .debug_abbrev .debug_str .debug_line .debug_aranges; do
   arm-none-eabi-objcopy --add-section $sec=build/asmlift-ctx$sec.bin sa3-syms.elf
   rm -f build/asmlift-ctx$sec.bin
 done
+
+# The macro table, from the second compile (see above).
+arm-none-eabi-objcopy -O binary --only-section=.debug_macinfo \
+  --set-section-flags .debug_macinfo=alloc build/asmlift-ctx-macros.o build/asmlift-ctx.macinfo.bin
+arm-none-eabi-objcopy --add-section .debug_macinfo=build/asmlift-ctx.macinfo.bin sa3-syms.elf
+rm -f build/asmlift-ctx.macinfo.bin
 
 echo "built sa3-syms.elf"
