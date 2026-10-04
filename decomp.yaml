@@ -1,4 +1,14 @@
+name: Sonic Advance 3
 platform: gba
+versions:
+  - name: eu
+    fullname: Europe
+    sha1: 685af3a2dc0f1b3f8922e73ec42c1dc92e210e39
+    paths:
+      target: baserom.gba
+      build_dir: build/gba/sa3
+      map: sa3.map
+      compiled_target: sa3.gba
 
 tools:
   asmlift:
