@@ -366,8 +366,7 @@ void sub_8097D90(CharacterSelect *cs)
     cs->unkC[PLAYER_2] = gPlayers[partnerIndex].charFlags.character;
 }
 
-// (99.57%) https://decomp.me/scratch/KvZA5
-NONMATCH("asm/non_matching/game/char_select__sub_8097E5C.inc", void sub_8097E5C(CharacterSelect *cs))
+void sub_8097E5C(CharacterSelect *cs)
 {
     TileInfo2 *ti;
 #ifndef NON_MATCHING
@@ -399,8 +398,8 @@ NONMATCH("asm/non_matching/game/char_select__sub_8097E5C.inc", void sub_8097E5C(
     s = &cs->spr9C;
     s->tiles = vram;
     vram += 0x640;
-    s->anim = gUnknown_080D8D08[cs->language].anim;
-    s->variant = gUnknown_080D8D08[cs->language].variant;
+    s->anim = gUnknown_080D8D08[cs->language * 8].anim;
+    s->variant = gUnknown_080D8D08[cs->language * 8].variant;
     s->prevVariant = -1;
     s->x = I(cs->qUnk24);
     s->y = I(cs->qUnk28);
@@ -449,8 +448,8 @@ NONMATCH("asm/non_matching/game/char_select__sub_8097E5C.inc", void sub_8097E5C(
     index2 = (gUnknown_080D8F18[cs->unk5]);
     s->tiles = vram;
     vram += 0x1C0;
-    s->anim = gUnknown_080D8E80[language * sizeof(TileInfo2) + index2].anim;
-    s->variant = gUnknown_080D8E80[language * sizeof(TileInfo2) + index2].variant;
+    s->anim = gUnknown_080D8E80[index2 += language * sizeof(TileInfo2)].anim;
+    s->variant = gUnknown_080D8E80[index2].variant;
     s->prevVariant = -1;
     s->x = I(cs->qUnk64);
     s->y = I(cs->qUnk68);
@@ -467,8 +466,8 @@ NONMATCH("asm/non_matching/game/char_select__sub_8097E5C.inc", void sub_8097E5C(
     index2 = (gUnknown_080D8F18[cs->unk5]);
     s->tiles = vram;
     vram += 0x1C0;
-    s->anim = gUnknown_080D8E80[language * sizeof(TileInfo2) + index2].anim;
-    s->variant = gUnknown_080D8E80[language * sizeof(TileInfo2) + index2].variant;
+    s->anim = gUnknown_080D8E80[index2 += language * sizeof(TileInfo2)].anim;
+    s->variant = gUnknown_080D8E80[index2].variant;
     s->prevVariant = -1;
     s->x = I(cs->qUnk6C);
     s->y = I(cs->qUnk70);
@@ -498,7 +497,6 @@ NONMATCH("asm/non_matching/game/char_select__sub_8097E5C.inc", void sub_8097E5C(
 
     cs->tilesCharacters[CS_CHARID_ACTIVE] = vram;
 }
-END_NONMATCH
 
 void CharSelect_InitBackgrounds(CharacterSelect *cs)
 {
