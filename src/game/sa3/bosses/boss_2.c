@@ -1413,16 +1413,11 @@ void sub_806C004(void)
     }
 }
 
-// TODO: agbcc behavior: functions' assembly random getting changed)
-//       Either this matches once all other functions do, or we need to split up the module
 // (100.00%) https://decomp.me/scratch/WJSVH
-NONMATCH("asm/non_matching/game/bosses/boss_2__sub_806C06C.inc", void sub_806C06C(Boss2Exit *strc))
+void sub_806C06C(Boss2Exit *strc)
 {
     s32 temp_r7;
     s32 temp_r8;
-    s32 var_r1_2;
-    u32 temp_r0;
-    u8 var_r1;
     u8 var_r5;
     Sprite *s = (Sprite *)&strc->s;
     Player *p = NULL;
@@ -1444,7 +1439,6 @@ NONMATCH("asm/non_matching/game/bosses/boss_2__sub_806C06C.inc", void sub_806C06
         }
     }
 }
-END_NONMATCH
 
 void sub_806C12C(void)
 {
