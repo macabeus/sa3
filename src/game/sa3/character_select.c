@@ -1273,8 +1273,8 @@ void Task_8099300()
     }
 }
 
-// (96.04%) https://decomp.me/scratch/f1JNY
-NONMATCH("asm/non_matching/game/char_select__sub_809947C.inc", void Task_809947C())
+// (100.00%) https://decomp.me/scratch/htmcn
+void Task_809947C()
 {
     Background *bg;
     u16 *var_r0_2;
@@ -1299,10 +1299,12 @@ NONMATCH("asm/non_matching/game/char_select__sub_809947C.inc", void Task_809947C
 
     cs->unk3 = 0;
     for (var_r1 = 0; var_r1 < 4; var_r1++) {
-        if (cs->unk3 == cs->unk5) {
-            cs->unk3++;
+        if (cs->unk3 != cs->unk5) {
+            if (cs->unk3 < 5) {
+                break;
+            }
         } else {
-            break;
+            cs->unk3++;
         }
     }
 
@@ -1348,7 +1350,6 @@ NONMATCH("asm/non_matching/game/char_select__sub_809947C.inc", void Task_809947C
     DrawBackground(bg);
     gCurTask->main = Task_8099680;
 }
-END_NONMATCH
 
 void Task_8099680(void)
 {
