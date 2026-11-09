@@ -1405,8 +1405,8 @@ void sub_80B3BD4()
     }
 }
 
-// (98.70%) https://decomp.me/scratch/QXQT8
-NONMATCH("asm/non_matching/game/sa3/spstg__sub_80B3C28.inc", void sub_80B3C28(void))
+// (100.00%) https://decomp.me/scratch/UEqUM
+void sub_80B3C28(void)
 {
     SpStgContext *temp_r6;
     s32 temp_r4;
@@ -1416,9 +1416,9 @@ NONMATCH("asm/non_matching/game/sa3/spstg__sub_80B3C28.inc", void sub_80B3C28(vo
 
     temp_r6 = task8->unk0;
     if (task8->unkAC == 0xA) {
-        s32 a, b;
         task8->unkB0 += 1;
-        if (temp_r6->unk8C2 < gUnknown_080DBE82[temp_r6->unk8C7][1]) {
+
+        if (temp_r6->unk8C2 < gUnknown_080DBE84[temp_r6->unk8C7][0]) {
             s32 temp_r4_2;
             temp_r0 = (u16)temp_r6->unk8C2 + 1;
             temp_r6->unk8C2 = (s16)temp_r0;
@@ -1427,13 +1427,16 @@ NONMATCH("asm/non_matching/game/sa3/spstg__sub_80B3C28.inc", void sub_80B3C28(vo
             temp_r6->unk8D2 = Div(temp_r4_2, 10) - (temp_r6->unk8D1 * 10);
             temp_r6->unk8D3 = Mod(temp_r4_2, 10);
         }
+
         if (task8->unkB0 > 0x168U) {
             temp_r4 = 0;
             task8->unkB0 = temp_r4;
             task8->unkAC = temp_r4;
-            temp_r0_2 = (u16)gUnknown_080DBE82[temp_r6->unk8C7][1];
+            temp_r0 = (u16)gUnknown_080DBE84[temp_r6->unk8C7][0];
+            temp_r0_2 = temp_r0;
             temp_r6->unk8C2 = (s16)temp_r0_2;
-            temp_r4 = temp_r0_2 << 16;
+            temp_r0 = temp_r0_2;
+            temp_r4 = temp_r0 << 16;
             temp_r4 >>= 16;
             temp_r6->unk8D1 = (s8)Div(temp_r4, 100);
             temp_r6->unk8D2 = Div(temp_r4, 10) - (temp_r6->unk8D1 * 10);
@@ -1441,7 +1444,6 @@ NONMATCH("asm/non_matching/game/sa3/spstg__sub_80B3C28.inc", void sub_80B3C28(vo
         }
     }
 }
-END_NONMATCH
 
 void sub_80B3D4C()
 {
