@@ -1551,7 +1551,7 @@ void sub_806C2F8()
 // TODO: agbcc behavior: functions' assembly random getting changed)
 //       Either this matches once all other functions do, or we need to split up the module
 // (100.00%) https://decomp.me/scratch/BFDSd
-NONMATCH("asm/non_matching/game/bosses/boss_2__sub_806C370.inc", void sub_806C370(void))
+void sub_806C370(void)
 {
     Vec2_32 sp10;
     Vec2_32 sp18;
@@ -1617,7 +1617,6 @@ NONMATCH("asm/non_matching/game/bosses/boss_2__sub_806C370.inc", void sub_806C37
         }
     }
 }
-END_NONMATCH
 
 // (90.00%) https://decomp.me/scratch/8LnyE
 NONMATCH("asm/non_matching/game/bosses/boss_2__sub_806C4F8.inc", void sub_806C4F8(void))
