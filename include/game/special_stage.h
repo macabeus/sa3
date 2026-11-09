@@ -363,6 +363,7 @@ void Task_80B7314(void);
 
 s16 sa3__sub_80B1560(s16 *unk28, u16 unk5C);
 extern s16 gUnknown_080DBE82[2][2];
+extern s16 gUnknown_080DBE84[][2];
 extern TileInfo3 gUnknown_080DBEA0[11];
 extern TileInfo_16_2 gUnknown_080DBEF8[];
 extern TileInfo_16_2 gUnknown_080DBF58[];
